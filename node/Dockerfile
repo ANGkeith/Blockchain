@@ -25,7 +25,7 @@ COPY --from=builder ./package.json /home/"$USER"/package.json
 
 # COPY --from=builder-client-go /usr/local/bin/geth /usr/local/bin/geth
 
-COPY scripts/entrypoint.sh /home/"$USER"/scripts/entrypoint.sh
+COPY scripts/ /home/"$USER"/scripts
 
 COPY app /home/"$USER"/app
 

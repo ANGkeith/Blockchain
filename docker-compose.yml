@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.7"
 
 services:
   node:
@@ -12,21 +12,6 @@ services:
     volumes:
       - ./node/app:/home/node/app
 
-  # ganache:
-  #   container_name: ganache
-  #   build:
-  #     context: ./ganache
-  #   devices:
-  #     - /dev/fuse:/dev/fuse
-  #   volumes:
-  #     - /tmp/.X11-unix:/tmp/.X11-unix
-  #   ports:
-  #     - "7545:7545"
-  #   cap_add:
-  #     - SYS_ADMIN
-  #   environment:
-  #     - DISPLAY
-
   bootnode:
     container_name: bootnode
     user: "${UID}:${GID}"
@@ -38,17 +23,42 @@ services:
     user: "${UID}:${GID}"
     build:
       context: ./private-chain
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
     ports:
       - "8545:8545"
     environment:
       - account=ddffffc540bc00e915bef356aad1be85ccac1b4c
       - miner_threads=1
+      - NODEKEY=a37491ec0372fb8519270345affd96018ac95f77a7158d5938423f00407279af
+      - MY_CONTAINER=private-chain-2
 
   private-chain-2:
     container_name: private-chain-2
     user: "${UID}:${GID}"
     build:
       context: ./private-chain
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
     environment:
       - account=ddffffc540bc00e915bef356aad1be85ccac1b4c
-      - miner_threads=2
+      - miner_threads=1
+      - NODEKEY=9b26f0cb4b28f5ad6354e376ba62d5c1ab952e96f117b6115acef9215de17030
+
+  private-chain-3:
+    container_name: private-chain-3
+    user: "${UID}:${GID}"
+    build:
+      context: ./private-chain
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+    environment:
+      - account=ddffffc540bc00e915bef356aad1be85ccac1b4c
+      - miner_threads=1
+      - NODEKEY=269cfec0e1e289f28767efb643a62b83cbb1640b8ba77a5418306b5308dab37c

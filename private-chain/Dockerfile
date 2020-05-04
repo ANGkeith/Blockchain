@@ -32,4 +32,6 @@ RUN chown -R "$USER":"$USER" /home/"$USER"
 WORKDIR /home/"$USER"
 USER "$USER"
 
+ENV PATH=/home/"$USER"/scripts:"$PATH"
+
 ENTRYPOINT [ "./scripts/entrypoint.sh" ]

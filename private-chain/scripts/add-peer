@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+set -o nounset
+set -o errexit
+
+SCRIPT_DIRECTORY=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)
+# shellcheck disable=SC2034
+PROJECT_ROOT=$(cd "$(dirname "${SCRIPT_DIRECTORY}")" && pwd -P)
+
+
+case $1 in
+    1)
+        pubkey=9aaa4f1555f336b0c928530496a633eadaf9819e9d29bac9d288615ecc8a8be1ec51fd896d17995bb4aa1da0150f2c2334a2607fb7b110fd5c10bd31a671d8c5
+        container=private-chain-1
+    ;;
+    2)
+        pubkey=2f181300063e0de4d20ecc63d83dc5512b4397896e2753b6d461dca046a7c8d0e7a9c72f651ff0b596db1fcc273b1d94fe6efbc4390907422a39aee0a0d57f0e
+        container=private-chain-2
+    ;;
+    3)
+        pubkey=bfe1ad9a5c1c518bdda4f509a4e66b0168fc17d9c04b7f651dcb7d450ba9a2c821acfa9a90933f581ab58d7e77ec450df25d41b6a46910a3e9cafa8b7e40811f
+        container=private-chain-3
+    ;;
+    *)
+        echo "Invalid selection"
+    ;;
+esac
+
+echo "executing admin.addPeer(\"enode://$pubkey@$container:30303?discport=0\")"
+geth attach << EOF
+admin.addPeer("enode://$pubkey@$container:30303?discport=0")
+EOF

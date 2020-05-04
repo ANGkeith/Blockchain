@@ -32,7 +32,7 @@ contract("ChainList", function(accounts) {
                 articleName1,
                 articleDescription1,
                 web3.utils.toWei(articlePrice1, "ether").toString(),
-                { from: seller }
+                {from: seller}
             );
             assert.equal(receipt.logs.length, 1, "one event should have been triggered");
             assert.equal(receipt.logs[0].event, "LogSellArticle", "event should be LogSellArticle");
@@ -76,7 +76,7 @@ contract("ChainList", function(accounts) {
                 articleName2,
                 articleDescription2,
                 web3.utils.toWei(articlePrice2, "ether"),
-                { from: seller }
+                {from: seller}
             );
             assert.equal(receipt.logs.length, 1, "one event should have been triggered");
             assert.equal(receipt.logs[0].event, "LogSellArticle", "event should be LogSellArticle");
