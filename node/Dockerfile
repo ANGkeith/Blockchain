@@ -26,6 +26,7 @@ COPY --from=builder ./package.json /home/"$USER"/package.json
 # COPY --from=builder-client-go /usr/local/bin/geth /usr/local/bin/geth
 
 COPY scripts/ /home/"$USER"/scripts
+ENV PATH=/home/"$USER"/scripts:"$PATH"
 
 COPY app /home/"$USER"/app
 

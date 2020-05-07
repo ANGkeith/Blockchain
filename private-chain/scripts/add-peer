@@ -27,7 +27,7 @@ case $1 in
     ;;
 esac
 
-echo "executing admin.addPeer(\"enode://$pubkey@$container:30303?discport=0\")"
-geth attach << EOF
+echo "admin.addPeer(\"enode://$pubkey@$container:30303?discport=0\")"
+geth attach >/dev/null << EOF
 admin.addPeer("enode://$pubkey@$container:30303?discport=0")
 EOF
